@@ -1,3 +1,7 @@
+body {
+    background-color: ##eeefef; !important
+}
+
 .w3-theme-l5 {
     color: #000 !important;
     background-color: #f0f0f0 !important
@@ -87,8 +91,4 @@
 
 .w3-hover-border-theme:hover {
     border-color: #000000 !important
-}
-
-body {
-    background-color: ##eeefef;
 }

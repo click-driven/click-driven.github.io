@@ -92,3 +92,7 @@ body {
 .w3-hover-border-theme:hover {
     border-color: #000000 !important
 }
+
+.quick-white {
+    background-color: #ffffff !important
+}

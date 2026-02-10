@@ -39,6 +39,7 @@ body {
 .w3-theme-d2 {
     color: #fff !important;
     background-color: transparent !important
+    filter: blur(10px);
 }
 
 .w3-theme-d3 {
@@ -102,5 +103,5 @@ body {
 }
 
 .quick-blur {
-    filter: blur(10px);
+filter: blur(10px);
 }

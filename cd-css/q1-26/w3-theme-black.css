@@ -100,3 +100,35 @@ body {
 .quick-white {
     background-color: #ffffff !important
 }
+
+/* Responsive Work Row Layout */
+/* Default: 4 columns on large screens (>1200px) */
+#work .w3-quarter {
+    width: 25%;
+    float: left;
+    padding: 0 8px;
+}
+
+/* 3 columns on medium screens (768px - 1200px) 
+@media (max-width: 1200px) {
+    #work .w3-quarter {
+        width: 33.33333%;
+    }
+}
+*/
+/* 2 columns on small screens (600px - 768px) */
+@media (max-width: 983px) {
+    #work .w3-quarter {
+        width: 50%;
+        margin-bottom: 24px;
+    }
+}
+
+/* 1 column on extra small screens (<600px) */
+@media (max-width: 600px) {
+    #work .w3-quarter {
+        width: 100%;
+        float: none;
+        margin-bottom: 32px;
+    }
+}

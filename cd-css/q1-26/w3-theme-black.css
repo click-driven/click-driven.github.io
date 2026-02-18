@@ -5,6 +5,16 @@ html {
 body {
     background-color: #eeefef;
 }
+footer {
+  margin: auto;
+  max-width: 1200px;
+}
+
+.w3-greyscale-min {
+  display: block;
+  margin: auto;
+  max-width: 1200px;
+}
 
 .w3-theme-l5 {
     color: #000 !important;

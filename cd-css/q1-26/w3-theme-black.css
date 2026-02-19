@@ -111,6 +111,10 @@ footer {
     background-color: #ffffff !important
 }
 
+.quick-off-white {
+    background-color: #eeefef !important
+}
+
 /* Responsive Work Row Layout */
 /* Default: 4 columns on large screens (>1200px) */
 #work .w3-quarter {

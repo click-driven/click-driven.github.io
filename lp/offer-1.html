@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click-Driven Marketing | Expert Marketing Support</title>
+
+    <meta property="og:title" content="Click-Driven Marketing">
+    <meta property="og:description"
+        content="Stop wasting your marketing budget. Gain expert strategies and execution engineered for scale.">
+
+    <!-- Styles from index3-style-agent -->
+    <link rel="stylesheet" href="https://www.click-driven.com/cd-css/cd-main.css">
+
+    <style>
+        /* To make quotes fit better since they are long */
+        .testimonial-quote {
+            font-size: 1rem;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navigation Area -->
+    <header class="top-nav">
+        <div class="nav-container">
+            <a href="#"><img src="../images/cd-assets/cd-logo-text.svg" alt="Click-Driven"></a>
+            <nav class="desktop-nav">
+                <a href="#approach">Approach</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <button id="menu-btn" onclick="document.getElementById('mobile-nav').classList.toggle('open')"
+                aria-label="Menu">&#9776;</button>
+        </div>
+        <div id="mobile-nav">
+            <a href="#approach" onclick="this.parentElement.classList.remove('open')">Approach</a>
+            <a href="#testimonials" onclick="this.parentElement.classList.remove('open')">Testimonials</a>
+            <a href="#contact" onclick="this.parentElement.classList.remove('open')">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="badge">Serving high-growth companies since 2011</div>
+            <h1>Stop Wasting Your<br>Marketing Budget</h1>
+            <p>Too many founders deal with agencies that use superficial tactics, fail to communicate, and drain
+                resources. It’s frustrating, expensive, and leaves your growth stalled while your competitors pull
+                ahead.</p>
+
+            <div class="button-group">
+                <a href="https://intro.click-driven.com" class="button primary">Book Intro Call</a>
+            </div>
+        </section>
+
+        <!-- Services Section using Bento Grid -->
+        <section id="approach" class="bento-grid">
+            <div class="grid work-grid">
+                <div class="intro-column">
+                    <h2>Growth Without The Guesswork</h2>
+                    <p>At Click-Driven, we’ve been scaling businesses for over a decade—and we know exactly what
+                        founders need from their marketing partner.</p>
+                </div>
+
+                <article class="card">
+                    <div class="content">
+                        <h3>Strategy Over Tactics</h3>
+                        <p>We do deep marketing designed for scale, not superficial quick-fixes. Get an unfair advantage
+                            with data-driven insights.</p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="content">
+                        <h3>Radical Transparency</h3>
+                        <p>No more guessing what your agency is doing. Enjoy clear, honest visibility into exactly where
+                            your budget is going.</p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="content">
+                        <h3>Predictable Outcomes</h3>
+                        <p>Built-in systems to drive repeatable revenue growth so that you can confidently scale
+                            operations without second-guessing.</p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="content">
+                        <h3>Expert Execution</h3>
+                        <p>Every campaign is managed directly by a marketing veteran. Avoid handing the keys over to a
+                            junior intern.</p>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials">
+            <div class="testimonials-header">
+                <h2>Testimonials</h2>
+            </div>
+
+            <div class="carousel-wrapper">
+                <div class="testimonial-carousel" id="testimonial-slider">
+                    <!-- Page 1 -->
+                    <article class="testimonial-card">
+                        <img src="https://www.click-driven.com/images/other-images/Logos/rso-logoname.webp"
+                            alt="RSO Logo" class="testimonial-logo">
+                        <blockquote class="testimonial-quote">Better than any MBA I've hired</blockquote>
+                        <p class="testimonial-name">
+                            <img src="../images/other-images/Testimonials/illustrated-rso.png" alt="Rob Sanders"
+                                class="testimonial-avatar">
+                            Rob Sanders,<br>RSO Consulting
+                        </p>
+                    </article>
+
+                    <article class="testimonial-card">
+                        <img src="https://www.click-driven.com/images/other-images/Logos/shippo-logoname.png"
+                            alt="Shippo Logo" class="testimonial-logo">
+                        <blockquote class="testimonial-quote">Like the second coming of Jesus for our team</blockquote>
+                        <p class="testimonial-name">
+                            <img src="../images/other-images/Testimonials/illustrated-shippo.webp" alt="Jorge Leon"
+                                class="testimonial-avatar">
+                            Jorge Leon,<br>Shippo
+                        </p>
+                    </article>
+
+                    <article class="testimonial-card">
+                        <img src="https://www.click-driven.com/images/other-images/Logos/infa-logoname.png"
+                            alt="Informatica Logo" class="testimonial-logo">
+                        <blockquote class="testimonial-quote">Adam is a technology savant</blockquote>
+                        <p class="testimonial-name">
+                            <img src="../images/other-images/Testimonials/illustrated-informatica.webp"
+                                alt="Axel Playner" class="testimonial-avatar">
+                            Axel Playner,<br>Informatica
+                        </p>
+                    </article>
+
+                    <!-- Page 2 (Duplicated) -->
+                    <article class="testimonial-card">
+                        <img src="https://www.click-driven.com/images/other-images/Logos/academy-x-logoname.webp"
+                            alt="AcademyX Logo" class="testimonial-logo">
+                        <blockquote class="testimonial-quote">I always turn to Adam for advice on my most difficult
+                            digital marketing problems.</blockquote>
+                        <p class="testimonial-name">
+                            <img src="../images/other-images/Testimonials/illustrated-academy-x-2.png"
+                                alt="Stephen Fraga" class="testimonial-avatar">
+                            Stephen Fraga,<br>AcademyX
+                        </p>
+                    </article>
+                </div>
+
+                <button id="prev-btn" class="carousel-nav-btn prev" aria-label="Previous Testimonials">&larr;</button>
+                <button id="next-btn" class="carousel-nav-btn next" aria-label="Next Testimonials">&rarr;</button>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="contact-card" style="background: var(--bg-color); border: 2px solid var(--white);">
+                <h2>Ready for serious marketing?</h2>
+                <p>Trusted by industry leaders and unicorn startups across the Bay Area.</p>
+                <a href="https://intro.click-driven.com" class="button primary">Book Intro Call</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+
+        <div class="footer-bottom">
+            <div class="footer-left">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <!--  <a href="https://www.linkedin.com/company/click-driven/">LinkedIn</a>
+                <a href="https://twitter.com/click_driven">Twitter</a>
+                <a href="https://soundcloud.com/click-driven">Soundcloud</a>
+                <a href="https://www.instagram.com/click_driven/">Instagram</a> -->
+            </div>
+            <div class="footer-center">
+                <p>San Francisco, CA</p>
+            </div>
+            <div class="footer-right">
+                <p>&copy; 2026 Click-Driven</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Carousel Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slider = document.getElementById('testimonial-slider');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            if (!slider || !prevBtn || !nextBtn) return;
+
+            // Scroll amount is roughly half the container's visible width to advance one card smoothly
+            const scrollAmount = () => {
+                const card = slider.querySelector('.testimonial-card');
+                return card ? (card.clientWidth + 24) : 400; // 24 is the gap
+            };
+
+            nextBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+            });
+
+            prevBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+
+</html>

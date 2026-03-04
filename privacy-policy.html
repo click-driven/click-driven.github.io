@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Click-Driven Marketing</title>
+
+    <!-- Open Graph / Social Share -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.click-driven.com/privacy-policy.html">
+    <meta property="og:title" content="Privacy Policy | Click-Driven Marketing">
+    <meta property="og:description"
+        content="We only collect the data we need to make this site work. We don't sell your data. We treat your inbox like our own.">
+    <meta property="og:image"
+        content="https://www.click-driven.com/images/other-images/marketing-growth-starts-here.webp">
+    <meta property="og:image:alt" content="Marketing growth starts here">
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Privacy Policy | Click-Driven Marketing">
+    <meta name="twitter:description"
+        content="We only collect the data we need to make this site work. We don't sell your data. We treat your inbox like our own.">
+    <meta name="twitter:image"
+        content="https://www.click-driven.com/images/other-images/marketing-growth-starts-here.webp">
+
+    <link rel="stylesheet" href="https://www.click-driven.com/cd-css/cd-main.css">
+    <style>
+        .policy-content {
+            padding: 60px 0 100px;
+        }
+
+        .policy-content h2 {
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            scroll-margin-top: 140px;
+        }
+
+        .policy-content p,
+        .policy-content li {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+        }
+
+        .policy-content ul {
+            margin-left: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tldr-box {
+            background: var(--white);
+            border-radius: var(--radii-bento);
+            padding: 2.5rem;
+            margin-bottom: 4rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .tldr-box h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .tldr-box p {
+            margin-bottom: 0;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* Tech Stack Table Styles */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 2rem 0;
+            background: var(--white);
+            border-radius: var(--radii-bento);
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 600px;
+        }
+
+        th {
+            font-weight: 700;
+            color: var(--text-primary);
+            padding: 1rem;
+            border-bottom: 2px solid var(--bg-color);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--bg-color);
+            color: var(--text-secondary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        table a {
+            color: var(--text-primary);
+            font-weight: 600;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Area -->
+    <header class="top-nav">
+        <div class="nav-container">
+            <a href="index.html"><img src="images/cd-assets/cd-logo-text.svg" alt="Click-Driven"></a>
+            <nav class="desktop-nav">
+                <a href="#collect">Collect</a>
+                <a href="#tech-stack">Tech Stack</a>
+                <a href="#rights">Rights</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <button id="menu-btn" onclick="document.getElementById('mobile-nav').classList.toggle('open')"
+                aria-label="Menu">&#9776;</button>
+        </div>
+        <div id="mobile-nav">
+            <a href="#collect" onclick="this.parentElement.classList.remove('open')">Collect</a>
+            <a href="#tech-stack" onclick="this.parentElement.classList.remove('open')">Tech Stack</a>
+            <a href="#rights" onclick="this.parentElement.classList.remove('open')">Rights</a>
+            <a href="#contact" onclick="this.parentElement.classList.remove('open')">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero-ish Header -->
+        <section class="policy-header" style="padding-bottom: 0; text-align: center;">
+            <div class="badge">Last updated: March 4, 2026</div>
+            <h1 style="white-space: normal;">Privacy Policy</h1>
+        </section>
+
+        <section class="policy-content">
+            <div class="tldr-box">
+                <h3>The TL;DR</h3>
+                <p>We only collect the data we need to make our website perform optimally. We don't sell your data. We
+                    treat your inbox like our own.</p>
+            </div>
+
+            <h2 id="collect">1. What We Collect & Why</h2>
+            <p>We keep it simple. We generally collect two types of info:</p>
+            <ul>
+                <li><strong>Information you give us:</strong> (e.g., Your email when you sign up).</li>
+                <li><strong>Information collected automatically:</strong> (e.g., Pages you click on and how you use
+                    them).</li>
+            </ul>
+
+            <h2 id="tech-stack">2. Our Tech Stack (Tools We Use)</h2>
+            <p>We use these specific tools to run our business. When we add a new tool, we just add a row here:</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tool</th>
+                            <th>Purpose</th>
+                            <th>Data Shared</th>
+                            <th>Policy Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PostHog</td>
+                            <td>Product Analytics</td>
+                            <td>Anonymous usage data</td>
+                            <td><a href="https://posthog.com/docs/privacy" target="_blank" rel="noopener">Link</a></td>
+                        </tr>
+                        <tr>
+                            <td>HotJar</td>
+                            <td>Product Analytics</td>
+                            <td>Anonymous usage data</td>
+                            <td><a href="https://www.hotjar.com/privacy/" target="_blank" rel="noopener">Link</a></td>
+                        </tr>
+                        <tr>
+                            <td>Stripe</td>
+                            <td>Payments</td>
+                            <td>Credit card info (we never see it)</td>
+                            <td><a href="https://stripe.com/privacy" target="_blank" rel="noopener">Link</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 id="rights">3. Your Rights</h2>
+            <p>Regardless of where you live, we support your right to:</p>
+            <ul>
+                <li>See what data we have on you.</li>
+                <li>Delete your data entirely.</li>
+                <li>Stop receiving our marketing emails.</li>
+            </ul>
+
+            <h2 id="contact">4. Contact Us</h2>
+            <p>Got questions? Email us at: <a href="mailto:adam@click-driven.com"
+                    style="color: var(--text-primary); font-weight: 600;">adam@click-driven.com</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-bottom">
+            <div class="footer-left">
+                <a href="https://www.click-driven.com/lp/privacy-policy.html">Privacy Policy</a>
+                <!-- <a href="https://soundcloud.com/click-driven">SoundCloud</a> -->
+            </div>
+            <div class="footer-center">
+                <!-- <p>San Francisco, CA</p> -->
+            </div>
+            <div class="footer-right">
+                <p>&copy; 2026 Click-Driven</p>
+                <a href="https://www.click-driven.com/lp/privacy-policy.html">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Nav Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile nav toggle is handled via inline onclick on the button and links for simplicity as in index.html
+        });
+    </script>
+</body>
+
+</html>

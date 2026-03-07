@@ -2,22 +2,17 @@
 const TRACKING_URL = 'https://meta-pixel-wk.adam-342.workers.dev';
 
 function triggerMetaPageView() {
-    const currentFullUrl = window.location.href;
+    // encodeURIComponent ensures special characters like / and ? don't break the URL
+    const currentFullUrl = encodeURIComponent(window.location.href);
 
-    fetch(TRACKING_URL, {
-        method: 'GET', // GET is faster and simpler for headers
+    fetch(`${TRACKING_URL}?page_url=${currentFullUrl}`, {
+        method: 'GET',
         mode: 'cors',
-        headers: {
-            'x-landing-page': currentFullUrl // Send the URL here
-        }
+        cache: 'no-store'
     })
-        .then(res => console.log('Meta PageView sent for:', currentFullUrl))
+        .then(res => console.log('Meta PageView sent successfully'))
         .catch(err => console.error('Tracking Error:', err));
 }
 
-// 2. Run the function when the page is fully loaded
-if (document.readyState === 'complete') {
-    triggerMetaPageView();
-} else {
-    window.addEventListener('load', triggerMetaPageView);
-}
+// Only fire ONCE when the window is fully loaded
+window.addEventListener('load', triggerMetaPageView, { once: true });

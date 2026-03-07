@@ -3,24 +3,23 @@ const TRACKING_URL = 'https://meta-pixel-wk.adam-342.workers.dev';
 
 function triggerMetaPageView() {
     // window.location.href captures the EXACT full URL in the browser bar
-    const fullUrl = encodeURIComponent(window.location.href);
+    const fullUrl = (window.location.href);
 
     // We use a simple fetch to "ping" the worker
-    fetch(`${TRACKING_URL}?page_url=${fullUrl}`, {
-        method: 'GET',
-        mode: 'cors',    // Required to allow the browser to talk to a different domain
-        cache: 'no-store'
-    })
-        .then(response => {
-            if (response.ok) {
-                console.log('✅ Meta PageView successfully triggered via Cloudflare');
-            }
+    fetch(TRACKING_URL, {
+        method: 'POST', // Switched to POST to send data cleanly
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            landing_page: currentFullUrl
         })
-        .catch(error => {
-            // This will catch if an ad-blocker stops the request
-            console.error('❌ Tracking failed:', error);
-        });
+    })
+        .then(res => console.log('Meta PageView sent for:', currentFullUrl))
+        .catch(err => console.error('Tracking Error:', err));
 }
+
 
 // 2. Run the function when the page is fully loaded
 if (document.readyState === 'complete') {

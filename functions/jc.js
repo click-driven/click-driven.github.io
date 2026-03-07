@@ -2,8 +2,11 @@
 const TRACKING_URL = 'https://meta-pixel-wk.adam-342.workers.dev';
 
 function triggerMetaPageView() {
+    // window.location.href captures the EXACT full URL in the browser bar
+    const fullUrl = encodeURIComponent(window.location.href);
+
     // We use a simple fetch to "ping" the worker
-    fetch(TRACKING_URL, {
+    fetch(`${TRACKING_URL}?page_url=${fullUrl}`, {
         method: 'GET',
         mode: 'cors',    // Required to allow the browser to talk to a different domain
         cache: 'no-store'

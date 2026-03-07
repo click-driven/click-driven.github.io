@@ -2,18 +2,18 @@
 const TRACKING_URL = 'https://meta-pixel-wk.adam-342.workers.dev';
 
 function triggerMetaPageView() {
-    // window.location.href captures the EXACT full URL in the browser bar
-    const fullUrl = (window.location.href);
+    // 1. Define the variable
+    const currentFullUrl = window.location.href;
 
-    // We use a simple fetch to "ping" the worker
+    // 2. Use that SAME variable name below
     fetch(TRACKING_URL, {
-        method: 'POST', // Switched to POST to send data cleanly
+        method: 'POST',
         mode: 'cors',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            landing_page: currentFullUrl
+            landing_page: currentFullUrl // This now matches the variable above
         })
     })
         .then(res => console.log('Meta PageView sent for:', currentFullUrl))

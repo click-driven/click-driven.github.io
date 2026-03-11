@@ -605,6 +605,7 @@ footer {
 
 .contact-card p {
     margin-bottom: 0;
+    max-width: 470px !important;
 }
 
 .footer-bottom {

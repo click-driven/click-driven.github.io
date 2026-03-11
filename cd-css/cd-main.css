@@ -87,6 +87,10 @@ footer {
     align-items: center;
 }
 
+.hero p {
+    max-width: 653px;
+}
+
 section {
     padding: 100px 0;
 }

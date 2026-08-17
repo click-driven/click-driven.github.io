@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0">
+  <title>Marketing History</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #0f172a;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .viewport {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      cursor: grab;
+      touch-action: none;
+    }
+
+    .viewport.grabbing {
+      cursor: grabbing;
+    }
+
+    .image-wrapper {
+      transform-origin: center center;
+      transition: transform 0.1s ease-out;
+      will-change: transform;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+
+    .image-container {
+      background: #1e293b;
+      padding: 0.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img {
+      max-width: 90vw;
+      max-height: 85vh;
+      width: auto;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    /* Floating zoom control toolbar */
+    .controls {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(30, 41, 59, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.4rem 0.6rem;
+      border-radius: 9999px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      z-index: 50;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: #f8fafc;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .zoom-level {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #94a3b8;
+      min-width: 52px;
+      text-align: center;
+    }
+
+    .btn-reset {
+      font-size: 0.75rem;
+      border-radius: 9999px;
+      width: auto;
+      padding: 0 0.8rem;
+    }
+
+    .hint {
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(6px);
+      color: #94a3b8;
+      font-size: 0.75rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 9999px;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      opacity: 0.8;
+      z-index: 40;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 600px) {
+      .hint {
+        font-size: 0.7rem;
+      }
+      .controls {
+        bottom: 1rem;
+      }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false;">
+  <div class="hint" id="hint">Scroll or pinch to zoom &bull; Drag to pan &bull; Double-click to toggle zoom</div>
+
+  <div class="viewport" id="viewport">
+    <div class="image-wrapper" id="imageWrapper">
+      <main class="image-container">
+        <img 
+          id="mainImage"
+          src="marketing-history-wip.png" 
+          alt="Marketing History" 
+          oncontextmenu="return false;"
+          draggable="false"
+        >
+      </main>
+    </div>
+  </div>
+
+  <div class="controls" oncontextmenu="return false;">
+    <button class="btn" id="zoomOut" title="Zoom Out" aria-label="Zoom Out">&minus;</button>
+    <span class="zoom-level" id="zoomLabel">100%</span>
+    <button class="btn" id="zoomIn" title="Zoom In" aria-label="Zoom In">+</button>
+    <button class="btn btn-reset" id="zoomReset" title="Reset View">Reset</button>
+  </div>
+
+  <script>
+    const viewport = document.getElementById('viewport');
+    const imageWrapper = document.getElementById('imageWrapper');
+    const zoomInBtn = document.getElementById('zoomIn');
+    const zoomOutBtn = document.getElementById('zoomOut');
+    const zoomResetBtn = document.getElementById('zoomReset');
+    const zoomLabel = document.getElementById('zoomLabel');
+
+    let scale = 1;
+    let minScale = 0.5;
+    let maxScale = 5;
+    let pointX = 0;
+    let pointY = 0;
+    let startX = 0;
+    let startY = 0;
+    let isPanning = false;
+
+    function updateTransform() {
+      imageWrapper.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+      zoomLabel.textContent = `${Math.round(scale * 100)}%`;
+    }
+
+    function zoom(deltaScale, centerX, centerY) {
+      const prevScale = scale;
+      scale = Math.min(Math.max(scale + deltaScale, minScale), maxScale);
+      
+      if (centerX !== undefined && centerY !== undefined) {
+        // Zoom towards pointer position
+        const factor = scale / prevScale;
+        pointX = centerX - (centerX - pointX) * factor;
+        pointY = centerY - (centerY - pointY) * factor;
+      }
+      updateTransform();
+    }
+
+    // Wheel zoom
+    viewport.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const rect = viewport.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left - rect.width / 2;
+      const mouseY = e.clientY - rect.top - rect.height / 2;
+      
+      const delta = -e.deltaY * 0.0025;
+      zoom(delta * scale, mouseX, mouseY);
+    }, { passive: false });
+
+    // Pointer / Mouse / Touch Pan
+    let activePointers = new Map();
+    let initialPinchDistance = null;
+    let initialScale = 1;
+
+    viewport.addEventListener('pointerdown', (e) => {
+      activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      
+      if (activePointers.size === 1) {
+        isPanning = true;
+        startX = e.clientX - pointX;
+        startY = e.clientY - pointY;
+        viewport.classList.add('grabbing');
+      } else if (activePointers.size === 2) {
+        isPanning = false;
+        const [p1, p2] = Array.from(activePointers.values());
+        initialPinchDistance = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+        initialScale = scale;
+      }
+    });
+
+    window.addEventListener('pointermove', (e) => {
+      if (!activePointers.has(e.pointerId)) return;
+      activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+      if (activePointers.size === 1 && isPanning) {
+        pointX = e.clientX - startX;
+        pointY = e.clientY - startY;
+        updateTransform();
+      } else if (activePointers.size === 2 && initialPinchDistance) {
+        const [p1, p2] = Array.from(activePointers.values());
+        const currentDistance = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+        const ratio = currentDistance / initialPinchDistance;
+        scale = Math.min(Math.max(initialScale * ratio, minScale), maxScale);
+        updateTransform();
+      }
+    });
+
+    const handlePointerEnd = (e) => {
+      activePointers.delete(e.pointerId);
+      if (activePointers.size < 2) {
+        initialPinchDistance = null;
+      }
+      if (activePointers.size === 1) {
+        const [remaining] = Array.from(activePointers.values());
+        isPanning = true;
+        startX = remaining.x - pointX;
+        startY = remaining.y - pointY;
+      } else if (activePointers.size === 0) {
+        isPanning = false;
+        viewport.classList.remove('grabbing');
+      }
+    };
+
+    window.addEventListener('pointerup', handlePointerEnd);
+    window.addEventListener('pointercancel', handlePointerEnd);
+
+    // Double click / tap to toggle zoom
+    viewport.addEventListener('dblclick', (e) => {
+      if (scale > 1.2) {
+        scale = 1;
+        pointX = 0;
+        pointY = 0;
+      } else {
+        const rect = viewport.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left - rect.width / 2;
+        const mouseY = e.clientY - rect.top - rect.height / 2;
+        zoom(1.5, mouseX, mouseY);
+      }
+      updateTransform();
+    });
+
+    // Control buttons
+    zoomInBtn.addEventListener('click', () => zoom(0.3));
+    zoomOutBtn.addEventListener('click', () => zoom(-0.3));
+    zoomResetBtn.addEventListener('click', () => {
+      scale = 1;
+      pointX = 0;
+      pointY = 0;
+      updateTransform();
+    });
+
+    // Keyboard shortcuts (+, -, 0)
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '+' || e.key === '=') {
+        zoom(0.25);
+      } else if (e.key === '-' || e.key === '_') {
+        zoom(-0.25);
+      } else if (e.key === '0') {
+        scale = 1;
+        pointX = 0;
+        pointY = 0;
+        updateTransform();
+      }
+    });
+  </script>
+</body>
+</html>

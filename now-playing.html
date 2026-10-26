@@ -36,9 +36,6 @@
 
     <link rel="stylesheet" href="cd-css/cd-main.css">
 
-    <!-- Microlink Vanilla JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla/umd/microlink.min.js"></script>
-
     <style>
         body {
             min-height: 100vh;
@@ -112,7 +109,7 @@
             padding: 1.5rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             width: 100%;
-            max-width: 560px;
+            max-width: 520px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -124,68 +121,92 @@
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
         }
 
-        /* Override Microlink defaults to match Click-Driven design system */
-        .microlink_card {
-            width: 100% !important;
-            max-width: 100% !important;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
-            background-color: var(--white) !important;
-            color: var(--text-primary) !important;
-            border: 1px solid rgba(0, 0, 0, 0.06) !important;
-            border-radius: 16px !important;
+        /* Record Sleeve Preview Card */
+        .sleeve-card {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 16px;
             overflow: hidden;
+            text-decoration: none;
+            color: var(--text-primary);
             text-align: left;
-            transition: opacity 0.3s ease !important;
+            transition: background-color 0.2s ease;
         }
 
-        .microlink_card:hover {
-            background-color: #FAFAFA !important;
+        .sleeve-card:hover {
+            background-color: #FAFAFA;
         }
 
-        .microlink_card__media,
-        .microlink_card__media_image {
-            min-height: 320px !important;
+        .sleeve-artwork-wrapper {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-color: var(--bg-color);
+            overflow: hidden;
+            position: relative;
         }
 
-        .microlink_card__content {
-            background-color: transparent !important;
-            padding: 1.5rem !important;
+        .sleeve-artwork {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .microlink_card__content_title {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
-            font-weight: 700 !important;
-            font-size: 1.25rem !important;
-            letter-spacing: -0.02em !important;
-            color: var(--text-primary) !important;
-            margin-bottom: 0.5rem !important;
+        .sleeve-card:hover .sleeve-artwork {
+            transform: scale(1.02);
         }
 
-        .microlink_card__content_description {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
-            font-size: 0.95rem !important;
-            color: var(--text-secondary) !important;
-            line-height: 1.5 !important;
+        .sleeve-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
         }
 
-        .microlink_card__content_url {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
-            font-size: 0.75rem !important;
-            font-weight: 600 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.05em !important;
-            color: var(--text-secondary) !important;
-            margin-top: 0.75rem !important;
+        .sleeve-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            line-height: 1.3;
+            margin: 0;
+        }
+
+        .sleeve-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .sleeve-meta {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .sleeve-loading {
+            padding: 3rem 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            text-align: center;
+            width: 100%;
         }
 
         @media (max-width: 580px) {
             #stage-area {
                 padding: 1rem;
-            }
-
-            .microlink_card__media,
-            .microlink_card__media_image {
-                min-height: 240px !important;
             }
         }
     </style>
@@ -250,8 +271,8 @@
                 <a href="privacy-policy.html">Privacy</a>
             </div>
             <div class="footer-center">
-<!--                <p>San Francisco, CA</p>
-            </div> -->
+<!--                <p>San Francisco, CA</p> -->
+            </div>
             <div class="footer-right">
                 <p>&copy; 2026 Click-Driven</p>
             </div>
@@ -259,13 +280,112 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Automatically initialize Microlink on the target anchor tag when the page loads
-            microlink('.microlink-target', {
-                size: 'large', // Generates the large "record sleeve" layout with image on top
-                media: ['image', 'logo'], // Emphasize visual cover art
-                iframe: false, // We want the rich card picture, not an embed player that requires interaction
-            });
+        document.addEventListener('DOMContentLoaded', async () => {
+            const target = document.querySelector('.microlink-target');
+            if (!target || !target.href) return;
+
+            const trackUrl = target.href;
+            const stage = document.getElementById('stage-area');
+            const hostname = new URL(trackUrl).hostname.replace(/^www\./, '');
+
+            stage.innerHTML = '<div class="sleeve-loading">Loading track\u2026</div>';
+
+            async function fetchTrackMetadata(url) {
+                // 1. For SoundCloud links, use SoundCloud's official oEmbed API first
+                //    (fast, no rate limits, never blocked by bot protection)
+                if (url.includes('soundcloud.com')) {
+                    const res = await fetch(`https://soundcloud.com/oembed?format=json&url=${encodeURIComponent(url)}`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        return {
+                            title: data.title,
+                            description: data.author_name ? `By ${data.author_name}` : (data.description || ''),
+                            image: data.thumbnail_url ? data.thumbnail_url.replace('-t500x500', '-t500x500') : '',
+                            publisher: data.provider_name || hostname
+                        };
+                    }
+                }
+
+                // 2. Fallback to Noembed (supports Spotify, YouTube, SoundCloud, Mixcloud, Vimeo, etc.)
+                try {
+                    const noembedRes = await fetch(`https://noembed.com/embed?url=${encodeURIComponent(url)}`);
+                    if (noembedRes.ok) {
+                        const data = await noembedRes.json();
+                        if (!data.error && (data.title || data.thumbnail_url)) {
+                            return {
+                                title: data.title || url,
+                                description: data.author_name ? `By ${data.author_name}` : '',
+                                image: data.thumbnail_url || '',
+                                publisher: data.provider_name || hostname
+                            };
+                        }
+                    }
+                } catch (_) { }
+
+                // 3. Final fallback to Microlink API
+                const mlRes = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(url)}`);
+                if (mlRes.ok) {
+                    const json = await mlRes.json();
+                    if (json.status === 'success' && json.data) {
+                        const d = json.data;
+                        return {
+                            title: d.title || url,
+                            description: d.description || (d.author ? `By ${d.author}` : ''),
+                            image: (d.image && d.image.url) || (d.logo && d.logo.url) || '',
+                            publisher: d.publisher || hostname
+                        };
+                    }
+                }
+
+                throw new Error('Could not load preview metadata');
+            }
+
+            try {
+                const meta = await fetchTrackMetadata(trackUrl);
+
+                const card = document.createElement('a');
+                card.href = trackUrl;
+                card.target = '_blank';
+                card.rel = 'noopener noreferrer';
+                card.className = 'sleeve-card';
+
+                if (meta.image) {
+                    const artWrapper = document.createElement('div');
+                    artWrapper.className = 'sleeve-artwork-wrapper';
+                    const img = document.createElement('img');
+                    img.src = meta.image;
+                    img.alt = meta.title || 'Track Artwork';
+                    img.className = 'sleeve-artwork';
+                    artWrapper.appendChild(img);
+                    card.appendChild(artWrapper);
+                }
+
+                const content = document.createElement('div');
+                content.className = 'sleeve-content';
+
+                const titleEl = document.createElement('h2');
+                titleEl.className = 'sleeve-title';
+                titleEl.textContent = meta.title;
+                content.appendChild(titleEl);
+
+                if (meta.description) {
+                    const descEl = document.createElement('p');
+                    descEl.className = 'sleeve-description';
+                    descEl.textContent = meta.description;
+                    content.appendChild(descEl);
+                }
+
+                const metaEl = document.createElement('span');
+                metaEl.className = 'sleeve-meta';
+                metaEl.textContent = meta.publisher || hostname;
+                content.appendChild(metaEl);
+
+                card.appendChild(content);
+                stage.innerHTML = '';
+                stage.appendChild(card);
+            } catch (err) {
+                stage.innerHTML = `<a href="${trackUrl}" target="_blank" rel="noopener" class="button primary">Listen on ${hostname}</a>`;
+            }
         });
     </script>
 </body>

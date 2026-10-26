@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Now Playing | Click-Driven Marketing</title>
+    <meta name="description" content="What's currently spinning at Click-Driven in San Francisco.">
+
+    <!-- Open Graph / Social Share -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.click-driven.com/now-playing.html">
+    <meta property="og:title" content="Now Playing | Click-Driven Marketing">
+    <meta property="og:description" content="What's currently spinning at Click-Driven in San Francisco.">
+    <meta property="og:image"
+        content="https://www.click-driven.com/images/other-images/marketing-growth-starts-here.webp">
+    <meta property="og:image:alt" content="Click-Driven Now Playing">
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Now Playing | Click-Driven Marketing">
+    <meta name="twitter:description" content="What's currently spinning at Click-Driven in San Francisco.">
+    <meta name="twitter:image"
+        content="https://www.click-driven.com/images/other-images/marketing-growth-starts-here.webp">
+
+    <!-- Begin PostHog Tracking Code -->
+    <script>
+        !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "init capture register register_once register_for_session unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group identify setPersonProperties setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags resetGroups onFeatureFlags addFeatureFlagsHandler onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep".split(" "), n = 0; n < o.length; n++) g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+        posthog.init('phc_nwMpiIKBvq5DJyEMs7yQk21X5Im8QPMxmhm2ItIohun', {
+            cookieless_mode: 'always',
+            api_host: 'https://us.i.posthog.com',
+            defaults: '2026-01-30'
+        })
+    </script>
+    <!-- End PostHog Tracking Code -->
+
+    <link rel="stylesheet" href="cd-css/cd-main.css">
+
+    <!-- Microlink Vanilla JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla/umd/microlink.min.js"></script>
+
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        footer {
+            width: 100%;
+        }
+
+        .now-playing-section {
+            padding: 40px 0 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .now-playing-header {
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .now-playing-header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin: 1rem 0 0.5rem;
+            white-space: normal;
+        }
+
+        .now-playing-header p {
+            margin-bottom: 0;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #c52222;
+            border-radius: 50%;
+            margin-right: 6px;
+            vertical-align: middle;
+            animation: pulse-dot 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.45;
+                transform: scale(0.85);
+            }
+        }
+
+        /* Stage wrapper styled as a Click-Driven Bento Card */
+        #stage-area {
+            background: var(--white);
+            border-radius: var(--radii-bento);
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 560px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+        }
+
+        #stage-area:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Override Microlink defaults to match Click-Driven design system */
+        .microlink_card {
+            width: 100% !important;
+            max-width: 100% !important;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+            background-color: var(--white) !important;
+            color: var(--text-primary) !important;
+            border: 1px solid rgba(0, 0, 0, 0.06) !important;
+            border-radius: 16px !important;
+            overflow: hidden;
+            text-align: left;
+            transition: opacity 0.3s ease !important;
+        }
+
+        .microlink_card:hover {
+            background-color: #FAFAFA !important;
+        }
+
+        .microlink_card__media,
+        .microlink_card__media_image {
+            min-height: 320px !important;
+        }
+
+        .microlink_card__content {
+            background-color: transparent !important;
+            padding: 1.5rem !important;
+        }
+
+        .microlink_card__content_title {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+            font-weight: 700 !important;
+            font-size: 1.25rem !important;
+            letter-spacing: -0.02em !important;
+            color: var(--text-primary) !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        .microlink_card__content_description {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+            font-size: 0.95rem !important;
+            color: var(--text-secondary) !important;
+            line-height: 1.5 !important;
+        }
+
+        .microlink_card__content_url {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+            font-size: 0.75rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+            color: var(--text-secondary) !important;
+            margin-top: 0.75rem !important;
+        }
+
+        @media (max-width: 580px) {
+            #stage-area {
+                padding: 1rem;
+            }
+
+            .microlink_card__media,
+            .microlink_card__media_image {
+                min-height: 240px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Area -->
+    <header class="top-nav">
+        <div class="nav-container">
+            <a href="index.html"><img src="../images/cd-assets/cd-logo-text.svg" alt="Click-Driven"></a>
+            <nav class="desktop-nav">
+                <a href="index.html#team">Team</a>
+                <a href="index.html#work">Work</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+            <button id="menu-btn" onclick="document.getElementById('mobile-nav').classList.toggle('open')"
+                aria-label="Menu">&#9776;</button>
+        </div>
+        <div id="mobile-nav">
+            <a href="index.html#team" onclick="this.parentElement.classList.remove('open')">Team</a>
+            <a href="index.html#work" onclick="this.parentElement.classList.remove('open')">Work</a>
+            <a href="index.html#pricing" onclick="this.parentElement.classList.remove('open')">Pricing</a>
+            <a href="index.html#contact" onclick="this.parentElement.classList.remove('open')">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="now-playing-section">
+            <div class="now-playing-header">
+                <div class="badge"><span class="status-dot"></span>On Air</div>
+                <h1>Now Playing</h1>
+                <p>Live from San Francisco.</p>
+            </div>
+
+            <div id="stage-area">
+
+                <!-- ========================================================================= -->
+                <!-- 💿 UPDATE YOUR URL HERE 💿                                                -->
+                <!-- Change the 'href' link below to your desired track URL.                   -->
+                <!-- Examples: Spotify, Apple Music, SoundCloud, YouTube links work perfectly. -->
+                <!-- ========================================================================= -->
+
+                <a href="https://soundcloud.com/sutrofm/celluloid-mixtape-09-begotten" class="microlink-target"></a>
+
+                <!-- ========================================================================= -->
+
+            </div>
+
+<!--            <div class="button-group">
+                <a href="https://soundcloud.com/click-driven" target="_blank" rel="noopener"
+                    class="button secondary">More on SoundCloud</a>
+            </div> -->
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-bottom">
+            <div class="footer-left">
+<!--                <a href="https://soundcloud.com/click-driven">SoundCloud</a> -->
+                <a href="privacy-policy.html">Privacy</a>
+            </div>
+            <div class="footer-center">
+<!--                <p>San Francisco, CA</p>
+            </div> -->
+            <div class="footer-right">
+                <p>&copy; 2026 Click-Driven</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Automatically initialize Microlink on the target anchor tag when the page loads
+            microlink('.microlink-target', {
+                size: 'large', // Generates the large "record sleeve" layout with image on top
+                media: ['image', 'logo'], // Emphasize visual cover art
+                iframe: false, // We want the rich card picture, not an embed player that requires interaction
+            });
+        });
+    </script>
+</body>
+
+</html>
